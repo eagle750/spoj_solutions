@@ -1,50 +1,81 @@
-#include <cmath>
-#include <cstdio>
-#include <vector>
-#include <iostream>
-#include <algorithm>
-#include<bits/stdc++.h>
-using namespace std;
-int main() {
-int n,m;
-    vector<pair<int,int> >a;
-    int b[100004];
-    cin>>n;
-    for(int i=0;i<n;i++)
-       {
-        int temp;
-        cin>>temp;
-        if(i==0)
-            a.push_back(make_pair(temp,1));
-        else
-            {
-            if(temp==a[i-1].first)
-                a.push_back(make_pair(temp,a[i-1].second));
-            else
-                a.push_back(make_pair(temp,a[i-1].second+1));
-        }
-       }
-    cin>>m;
-    for(int i=0;i<m;i++)
-        cin>>b[i];
-    int i=0;
-    int k=n-1;
-    while(i<m)
-        {
-        while(b[i]>a[k].first)
-            k--;
-   //     cout<<k<<" ";
-        if(k<0)
-            cout<<1<<endl;
-        else
-            {
-            if(b[i]==a[k].first)
-                cout<<a[k].second<<endl;
-            else
-                if(b[i]<a[k].first)
-        cout<<a[k].second+1<<endl;
-        }
-        i++;
-        }   
-    return 0;
+#include <bits/stdc++.h>
+            #define ll long long int
+            using namespace std;
+ 
+            int  _mergeSort(int arr[], int temp[], int left, int right);
+int merge(int arr[], int temp[], int left, int mid, int right);
+int mergeSort(int arr[], int array_size)
+{
+    int *temp = (int *)malloc(sizeof(int)*array_size);
+    return _mergeSort(arr, temp, 0, array_size - 1);
 }
+int _mergeSort(int arr[], int temp[], int left, int right)
+{
+  int mid, inv_count = 0;
+  if (right > left)
+  {
+    mid = (right + left)/2;
+ 
+    inv_count  = _mergeSort(arr, temp, left, mid);
+    inv_count += _mergeSort(arr, temp, mid+1, right);
+ 
+    inv_count += merge(arr, temp, left, mid+1, right);
+  }
+  return inv_count;
+}
+int merge(int arr[], int temp[], int left, int mid, int right)
+{
+  int i, j, k;
+  int inv_count = 0;
+ 
+  i = left;
+  j = mid;
+  k = left;
+  while ((i <= mid - 1) && (j <= right))
+  {
+    if (arr[i] <= arr[j])
+    {
+      temp[k++] = arr[i++];
+    }
+    else
+    {
+      temp[k++] = arr[j++];
+       inv_count = inv_count + (mid - i);
+    }
+  }
+  while (i <= mid - 1)
+    temp[k++] = arr[i++];
+  while (j <= right)
+    temp[k++] = arr[j++];
+   for (i=left; i <= right; i++)
+    arr[i] = temp[i];
+ 
+  return inv_count;
+}
+            int main()
+            {
+                ios_base::sync_with_stdio(0);
+                map<string,int>m;
+                int t,n;
+                cin>>t; string s,s1;
+                while(t--)
+                {
+                    cin>>n;
+                    int a[n];
+                    for(int i=0;i<n;i++)
+                    {
+                        cin>>s;
+                        m[s]=i;
+                    }
+                    for(int i=0;i<n;i++)
+                    {
+                        cin>>s1;
+                        a[i]=m[s1];
+                    }
+                    int x=mergeSort(a,n);
+                    cout<<x<<endl;
+                }
+ 
+                return 0;
+            }
+ 
