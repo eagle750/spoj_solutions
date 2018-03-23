@@ -1,0 +1,91 @@
+#include <iostream>
+#define ll long long int
+using namespace std;
+ 
+int main()
+{
+ll t,len,k,c,l,i; string s,s1,s2;
+cin>>t;
+while(t--)
+{
+    cin>>s;
+    c=0;
+    len=s.length();
+    k=0;l=0;
+    for(i=0;i<len;i++)
+    {
+    if(isalpha(s[i]))
+    {
+       cout<<s[i];
+    }
+    else
+    {
+if(s[i]=='(')
+                s2[++l]=s[i];
+        else
+            if(s[i]==')')
+            {
+                while(s2[l]!='(')
+                {
+                    cout<<s2[l];
+                    l--;
+                }
+                l--;
+            }
+                else
+                    if(s[i]=='+')
+                    {
+                      while(s2[l]=='+'||s2[l]=='-'||s2[l]=='*'||s2[l]=='/'||s2[l]=='^')
+                      {
+                          cout<<s2[l];
+                          l--;
+                      }
+                      s2[++l]='+';
+                    }
+                    else
+                   if(s[i]=='-')
+                    {
+                      while(s2[l]=='-'||s2[l]=='*'||s2[l]=='/'||s2[l]=='^')
+                      {
+                          cout<<s2[l];
+                          l--;
+                      }
+                      s2[++l]='-';
+                    }
+                    else
+                   if(s[i]=='*')
+                    {
+                      while(s2[l]=='*'||s2[l]=='/'||s2[l]=='^')
+                      {
+                        cout<<s2[l];
+                          l--;
+                      }
+                      s2[++l]='*';
+                    }
+                   else
+                   if(s[i]=='/')
+                    {
+                      while(s2[l]=='/'||s2[l]=='^')
+                      {
+                                cout<<s2[l];
+                          l--;
+                      }
+                      s2[++l]='/';
+                    }
+                    else
+                   if(s[i]=='^')
+                    {
+                      while(s2[l]=='^')
+                      {
+                            cout<<s2[l];
+                          l--;
+                      }
+                      s2[++l]='^';
+                    }
+    }
+    }
+   cout<<endl;
+}
+    return 0;
+}
+ 
