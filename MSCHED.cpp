@@ -31,4 +31,3 @@ ll t,n,t1,t2,x,y,mx=0;
     cout<<ans1<<endl;
     return 0;
 }
- 
